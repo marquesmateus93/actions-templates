@@ -1,6 +1,17 @@
 name: 'Paths Filter'
 description: ''
 
+inputs:
+  AWS_DEV_ACCOUNT:
+    description: ''
+    required: true
+  AWS_STA_ACCOUNT:
+    description: ''
+    required: true
+  AWS_PRO_ACCOUNT:
+    description: ''
+    required: true
+
 runs:
   using: "composite"
   steps:
