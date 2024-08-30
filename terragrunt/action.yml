@@ -1,11 +1,11 @@
 name: 'Terragrunt Install'
 description: 'Terragrunt install and version Setup by TGEnv.'
 inputs:
-  terragruntVersion:
+  TERRAGRUNT_VERSION:
     description: 'Terragrunt Version.'
     default: '0.58.2'
     required: true
-  terragruntPath:
+  TERRAGRUNT_PATH:
     description: 'Terragrunt path to the manifests tree.'
     default: ''
     required: true
@@ -24,8 +24,8 @@ runs:
 
   - name: Terragrunt Setup Version
     run: |
-      tgenv install $terragruntVersion && \
-      tgenv use $terragruntVersion
+      tgenv install $TERRAGRUNT_VERSION && \
+      tgenv use $TERRAGRUNT_VERSION
     shell: bash
 
   - name: Terragrunt Format
@@ -34,7 +34,7 @@ runs:
       --terragrunt-source-update \
       --terragrunt-non-interactive \
       --terragrunt-parallelism 1 \
-      --terragrunt-working-dir $terragruntPath
+      --terragrunt-working-dir $TERRAGRUNT_PATH
     shell: bash
 
   - name: Terragrunt Apply
@@ -45,5 +45,5 @@ runs:
       --terragrunt-source-update \
       --terragrunt-non-interactive \
       --terragrunt-parallelism 1 \
-      --terragrunt-working-dir $terragruntPath
+      --terragrunt-working-dir $TERRAGRUNT_PATH
     shell: bash
