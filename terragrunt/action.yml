@@ -24,8 +24,8 @@ runs:
 
   - name: Terragrunt Setup Version
     run: |
-      tgenv install $TerragruntVersion && \
-      tgenv use $TerragruntVersion
+      tgenv install $terragruntVersion && \
+      tgenv use $terragruntVersion
     shell: bash
 
   - name: Terragrunt Format
