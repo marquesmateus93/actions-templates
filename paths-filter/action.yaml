@@ -36,9 +36,8 @@ runs:
     id: filter_output
     run: |
       if [ ${{ steps.filter.outputs.dev }} == 'true' ]; then
-        echo "AWS_ACCOUNT= $(echo ${{ inputs.AWS_DEV_ACCOUNT }})" >> $GITHUB_ENV
-        echo "AWS_ACCOUNT=${{ inputs.AWS_DEV_ACCOUNT }}" >> $GITHUB_OUTPUT
-        echo "Input: $AWS_DEV_ACCOUNT"
+        echo "AWS_ACCOUNT=$AWS_DEV_ACCOUNT" >> $GITHUB_ENV
+        echo "AWS_ACCOUNT=$AWS_DEV_ACCOUNT"" >> $GITHUB_OUTPUT
       else
         echo "Else here!"
       fi
