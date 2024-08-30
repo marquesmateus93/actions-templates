@@ -25,8 +25,12 @@ runs:
           - 'sta/**'
         pro:
           - 'pro/**'
-    
+
   - name: Filter Output 
     run: |
-      echo "AWS_ACCOUNT=$(${{ steps.filter.outputs.dev == 'true' && inputs.AWS_DEV_ACCOUNT || steps.filter.outputs.sta == 'true' && inputs.AWS_STA_ACCOUNT || github.ref == 'refs/heads/pro' && inputs.AWS_PRO_ACCOUNT}})" >> $GITHUB_ENV
+      if [ ${{ steps.filter.outputs.dev == 'true' ]; then
+        echo "AWS_ACCOUNT=${{ inputs.AWS_DEV_ACCOUNT }}" >> $GITHUB_ENV
+      else
+        echo "Else here!"
+      fi
     shell: bash
