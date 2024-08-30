@@ -12,8 +12,14 @@ inputs:
     description: ''
     required: true
 
+outputs:
+  AWS_ACCOUNT: 
+    value: ${{ steps.filter_output.outputs.AWS_ACCOUNT }}
+    description: ""
+
 runs:
   using: "composite"
+
   steps:
   - uses: dorny/paths-filter@v3
     id: filter
@@ -26,11 +32,19 @@ runs:
         pro:
           - 'pro/**'
 
-  - name: Filter Output 
+  - name: Filter Output
+    id: filter_output
     run: |
       if [ ${{ steps.filter.outputs.dev }} == 'true' ]; then
-        echo "AWS_ACCOUNT=${{ inputs.AWS_DEV_ACCOUNT }}" >> $GITHUB_ENV
+        echo "AWS_ACCOUNT=${{ inputs.AWS_DEV_ACCOUNT }}" >> $GITHUB_OUTPUT
       else
         echo "Else here!"
       fi
+
+      echo "Valor: $AWS_ACCOUNT"
+    shell: bash
+
+  - name: Simple Echo
+    run: |
+      echo: "Output: ${{ steps.filter_output.outputs.AWS_ACCOUNT }}"
     shell: bash
