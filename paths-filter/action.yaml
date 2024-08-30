@@ -1,0 +1,22 @@
+name: 'Paths Filter'
+description: ''
+
+runs:
+  using: "composite"
+  steps:
+  - uses: dorny/paths-filter@v3
+    id: filter
+    with:
+      filters: |
+        dev:
+          - 'dev/**'
+        sta:
+          - 'sta/**'
+        pro:
+          - 'pro/**'
+    
+  - name: Filter Output 
+    run: |
+      AWS_ACCOUNT: ${{ steps.filter.outputs.dev == 'true' && vars.AWS_DEV_ACCOUNT || steps.filter.outputs.sta == 'true' && vars.AWS_STA_ACCOUNT || github.ref == 'refs/heads/pro' && vars.AWS_PRO_ACCOUNT}}
+      AWS_ACCOUNT >> $GITHUB_ENV
+    shell: bash
