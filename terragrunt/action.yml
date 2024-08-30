@@ -1,0 +1,49 @@
+name: 'Terragrunt Install'
+description: 'Terragrunt install and version Setup by TGEnv.'
+inputs:
+  terragruntVersion:
+    description: 'Terragrunt Version.'
+    default: '0.58.2'
+    required: true
+  terragruntPath:
+    description: 'Terragrunt path to the manifests tree.'
+    default: ''
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+  - name: TGEnv Install
+    run: |
+      git \
+      clone \
+      https://github.com/cunymatthieu/tgenv.git \
+      ~/.tgenv && \
+      echo  "$HOME/.tgenv/bin" >> $GITHUB_PATH
+    shell: bash
+
+  - name: Terragrunt Setup Version
+    run: |
+      tgenv install $TerragruntVersion && \
+      tgenv use $TerragruntVersion
+    shell: bash
+
+  - name: Terragrunt Format
+    run: |
+      terragrunt hclfmt \
+      --terragrunt-source-update \
+      --terragrunt-non-interactive \
+      --terragrunt-parallelism 1 \
+      --terragrunt-working-dir $terragruntPath
+    shell: bash
+
+  - name: Terragrunt Apply
+    run: |
+      git config --global url."https://github.com/".insteadOf \
+      ssh://git@github.com/ && \
+      terragrunt run-all apply \
+      --terragrunt-source-update \
+      --terragrunt-non-interactive \
+      --terragrunt-parallelism 1 \
+      --terragrunt-working-dir $terragruntPath
+    shell: bash
