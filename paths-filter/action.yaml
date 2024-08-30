@@ -41,7 +41,7 @@ runs:
         echo "Else here!"
       fi
 
-      echo "Valor: ${{ secrets.AWS_ACCOUNT }}"
+      echo "Valor: ${{ AWS_ACCOUNT }}"
     shell: bash
 
   - name: Simple Echo
