@@ -28,6 +28,5 @@ runs:
     
   - name: Filter Output 
     run: |
-      echo "AWS_ACCOUNT=$(${{ steps.filter.outputs.dev == 'true' && inputs.AWS_DEV_ACCOUNT || steps.filter.outputs.sta == 'true' && inputs.AWS_STA_ACCOUNT || github.ref == 'refs/heads/pro' && inputs.AWS_PRO_ACCOUNT}})"
-      AWS_ACCOUNT >> $GITHUB_ENV
+      echo "AWS_ACCOUNT=$(${{ steps.filter.outputs.dev == 'true' && inputs.AWS_DEV_ACCOUNT || steps.filter.outputs.sta == 'true' && inputs.AWS_STA_ACCOUNT || github.ref == 'refs/heads/pro' && inputs.AWS_PRO_ACCOUNT}})" >> $GITHUB_ENV
     shell: bash
