@@ -37,6 +37,7 @@ runs:
     run: |
       if [ ${{ steps.filter.outputs.dev }} == 'true' ]; then
         echo "AWS_ACCOUNT=${{ inputs.AWS_DEV_ACCOUNT }}" >> $GITHUB_ENV
+        echo "AWS_ACCOUNT=${{ inputs.AWS_DEV_ACCOUNT }}" >> $GITHUB_OUTPUT
       else
         echo "Else here!"
       fi
@@ -46,5 +47,5 @@ runs:
 
   - name: Simple Echo
     run: |
-      echo: "Output: ${{ steps.filter_output.outputs.AWS_ACCOUNT }}"
+      echo "Output: ${{ steps.filter_output.outputs.AWS_ACCOUNT }}"
     shell: bash
