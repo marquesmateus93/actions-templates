@@ -13,6 +13,17 @@ inputs:
 runs:
   using: "composite"
   steps:
+  - uses: dorny/paths-filter@v3
+    id: filter
+    with:
+      filters: |
+        dev:
+          - 'dev/**'
+        sta:
+          - 'sta/**'
+        pro:
+          - 'pro/**'
+
   - name: TGEnv Install
     run: |
       git \
@@ -38,6 +49,7 @@ runs:
     shell: bash
 
   - name: Terragrunt Apply
+    if: steps.filter.outputs.dev == 'true'
     run: |
       git config --global url."https://github.com/".insteadOf \
       ssh://git@github.com/ && \
@@ -47,3 +59,10 @@ runs:
       --terragrunt-parallelism 1 \
       --terragrunt-working-dir $TERRAGRUNT_PATH
     shell: bash
+
+      # - name: Terragrunt Install - DEV
+      #   if: steps.filter.outputs.dev == 'true'
+      #   uses: marquesmateus93/actions-templates/terragrunt@master
+      #   env:
+      #     TERRAGRUNT_VERSION: ${{ env.TERRAGRUNT_VERSION }}
+      #     TERRAGRUNT_PATH:    dev/${{ env.AWS_REGION }}
