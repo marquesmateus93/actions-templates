@@ -33,9 +33,9 @@ runs:
       id: paths_filter
       uses: marquesmateus93/piperoad/templates/paths-filter@master
       env:
-        AWS_DEV_ACCOUNT:  ${{ vars.AWS_DEV_ACCOUNT }}
-        AWS_STA_ACCOUNT:  ${{ vars.AWS_STA_ACCOUNT }}
-        AWS_PRO_ACCOUNT:  ${{ vars.AWS_PRO_ACCOUNT }}
+        AWS_DEV_ACCOUNT:  ${{ env.AWS_DEV_ACCOUNT }}
+        AWS_STA_ACCOUNT:  ${{ env.AWS_STA_ACCOUNT }}
+        AWS_PRO_ACCOUNT:  ${{ env.AWS_PRO_ACCOUNT }}
 
     - name: AWS Credentials
       uses: aws-actions/configure-aws-credentials@v4
