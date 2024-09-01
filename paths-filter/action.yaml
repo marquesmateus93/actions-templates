@@ -1,24 +1,24 @@
 name: 'Paths Filter'
-description: ''
+description: 'AWS Account and Terragrunt folder environment setup based on project folder changes.'
 
 inputs:
   AWS_DEV_ACCOUNT:
-    description: ''
+    description: 'Development account number.'
     required: true
   AWS_STA_ACCOUNT:
-    description: ''
+    description: 'Staging account number.'
     required: true
   AWS_PRO_ACCOUNT:
-    description: ''
+    description: 'Production account number.'
     required: true
 
 outputs:
   AWS_ACCOUNT: 
     value: ${{ steps.filter_output.outputs.AWS_ACCOUNT }}
-    description: ""
+    description: 'Account number output.'
   ENV_FOLDER: 
     value: ${{ steps.filter_output.outputs.ENV_FOLDER }}
-    description: ""
+    description: 'Changed folder updated output.'
 
 runs:
   using: "composite"
@@ -48,6 +48,6 @@ runs:
         echo "AWS_ACCOUNT=$AWS_PRO_ACCOUNT" >> $GITHUB_OUTPUT
         echo "ENV_FOLDER=pro" >> $GITHUB_OUTPUT
       else
-        echo "Invalid opntion!"
+        echo "Invalid 'AWS_ACCOUNT' and 'ENV_FOLDER' opntions!"
       fi
     shell: bash
