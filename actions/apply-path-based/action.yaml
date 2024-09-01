@@ -41,7 +41,7 @@ runs:
       uses: aws-actions/configure-aws-credentials@v4
       with:
         role-to-assume: arn:aws:iam::${{ steps.paths_filter.outputs.AWS_ACCOUNT }}:role/GitHubActions
-        aws-region: $AWS_REGION
+        aws-region: ${{ AWS_REGION }}
 
     - name: Terraform Install
       uses: marquesmateus93/piperoad/templates/terraform@master
