@@ -2,7 +2,7 @@ name: 'Apply Path Based'
 description: 'Terragrunt Apply environment folders based and only branch.'
 inputs:
   AWS_REGION:
-    description: 'AWS Terragrunt path region.'
+    description: 'Terragrunt path region.'
     default: ''
     required: true
   AWS_DEV_ACCOUNT:
@@ -14,21 +14,18 @@ inputs:
   AWS_PRO_ACCOUNT:
     description: 'Production account number.'
     required: true
+  TERRAFORM_VERSION:
+    description: 'Terragrunt Version.'
+    default: '1.3.8'
+    required: true
   TERRAGRUNT_VERSION:
     description: 'Terragrunt Version.'
     default: '0.58.2'
-    required: true
-  TERRAGRUNT_PATH:
-    description: 'Terragrunt path to the manifests tree.'
-    default: ''
     required: true
 
 runs:
   using: "composite"
   steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-
     - name: Paths Filter
       id: paths_filter
       uses: marquesmateus93/piperoad/templates/paths-filter@master
