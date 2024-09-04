@@ -48,7 +48,7 @@ runs:
       --terragrunt-working-dir $TERRAGRUNT_PATH
     shell: bash
 
-  - name: Terragrunt Apply
+  - name: Terragrunt Destroy
     run: |
       git config --global url."https://github.com/".insteadOf \
       ssh://git@github.com/ && \
