@@ -1,0 +1,60 @@
+name: 'Terragrunt Destroy'
+description: 'Terragrunt install, version Setup by TGEnv and destroy.'
+inputs:
+  TERRAGRUNT_VERSION:
+    description: 'Terragrunt Version.'
+    default: '0.58.2'
+    required: true
+  TERRAGRUNT_PATH:
+    description: 'Terragrunt path to the manifests tree.'
+    default: ''
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+  - uses: dorny/paths-filter@v3
+    id: filter
+    with:
+      filters: |
+        dev:
+          - 'dev/**'
+        sta:
+          - 'sta/**'
+        pro:
+          - 'pro/**'
+
+  - name: TGEnv Install
+    run: |
+      git \
+      clone \
+      https://github.com/cunymatthieu/tgenv.git \
+      ~/.tgenv && \
+      echo  "$HOME/.tgenv/bin" >> $GITHUB_PATH
+    shell: bash
+
+  - name: Terragrunt Setup Version
+    run: |
+      tgenv install $TERRAGRUNT_VERSION && \
+      tgenv use $TERRAGRUNT_VERSION
+    shell: bash
+
+  - name: Terragrunt Format
+    run: |
+      terragrunt hclfmt \
+      --terragrunt-source-update \
+      --terragrunt-non-interactive \
+      --terragrunt-parallelism 1 \
+      --terragrunt-working-dir $TERRAGRUNT_PATH
+    shell: bash
+
+  - name: Terragrunt Apply
+    run: |
+      git config --global url."https://github.com/".insteadOf \
+      ssh://git@github.com/ && \
+      terragrunt run-all destroy \
+      --terragrunt-source-update \
+      --terragrunt-non-interactive \
+      --terragrunt-parallelism 1 \
+      --terragrunt-working-dir $TERRAGRUNT_PATH
+    shell: bash

@@ -1,5 +1,5 @@
-name: 'Terragrunt Setup'
-description: 'Terragrunt install and version Setup by TGEnv.'
+name: 'Terragrunt Apply'
+description: 'Terragrunt install, version Setup by TGEnv and apply.'
 inputs:
   TERRAGRUNT_VERSION:
     description: 'Terragrunt Version.'
