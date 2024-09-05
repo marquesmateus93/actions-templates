@@ -1,0 +1,31 @@
+name: 'Terragrunt Plan'
+description: 'Terragrunt install, version Setup by TGEnv and plan.'
+inputs:
+  TERRAGRUNT_VERSION:
+    description: 'Terragrunt Version.'
+    default: '0.58.2'
+    required: true
+  TERRAGRUNT_PATH:
+    description: 'Terragrunt path to the manifests tree.'
+    default: ''
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+  - name: Terragrunt Install
+    uses: marquesmateus93/piperoad/templates/terragrunt/install@master
+    env:
+      TERRAGRUNT_VERSION: ${{ env.TERRAGRUNT_VERSION }}
+      TERRAGRUNT_PATH:    ${{ env.TERRAGRUNT_PATH }}
+
+  - name: Terragrunt Plan
+    run: |
+      git config --global url."https://github.com/".insteadOf \
+      ssh://git@github.com/ && \
+      terragrunt run-all plan \
+      --terragrunt-source-update \
+      --terragrunt-non-interactive \
+      --terragrunt-parallelism 1 \
+      --terragrunt-working-dir $TERRAGRUNT_PATH
+    shell: bash
