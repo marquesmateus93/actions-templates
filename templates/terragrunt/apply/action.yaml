@@ -24,29 +24,11 @@ runs:
         pro:
           - 'pro/**'
 
-  - name: TGEnv Install
-    run: |
-      git \
-      clone \
-      https://github.com/cunymatthieu/tgenv.git \
-      ~/.tgenv && \
-      echo  "$HOME/.tgenv/bin" >> $GITHUB_PATH
-    shell: bash
-
-  - name: Terragrunt Setup Version
-    run: |
-      tgenv install $TERRAGRUNT_VERSION && \
-      tgenv use $TERRAGRUNT_VERSION
-    shell: bash
-
-  - name: Terragrunt Format
-    run: |
-      terragrunt hclfmt \
-      --terragrunt-source-update \
-      --terragrunt-non-interactive \
-      --terragrunt-parallelism 1 \
-      --terragrunt-working-dir $TERRAGRUNT_PATH
-    shell: bash
+  - name: Terragrunt Install
+    uses: marquesmateus93/piperoad/templates/terragrunt/install@master
+    env:
+      TERRAGRUNT_VERSION: ${{ env.TERRAGRUNT_VERSION }}
+      TERRAGRUNT_PATH:    ${{ env.TERRAGRUNT_PATH }}
 
   - name: Terragrunt Apply
     run: |
