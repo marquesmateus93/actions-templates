@@ -11,9 +11,9 @@ inputs:
     required: true
 
 runs:
-    using: "composite"
-    steps:
-    - name: TGEnv Install
+  using: "composite"
+  steps:
+  - name: TGEnv Install
     run: |
         git \
         clone \
@@ -22,13 +22,13 @@ runs:
         echo  "$HOME/.tgenv/bin" >> $GITHUB_PATH
     shell: bash
 
-    - name: Terragrunt Setup Version
+  - name: Terragrunt Setup Version
     run: |
         tgenv install $TERRAGRUNT_VERSION && \
         tgenv use $TERRAGRUNT_VERSION
     shell: bash
 
-    - name: Terragrunt Format
+  - name: Terragrunt Format
     run: |
         terragrunt hclfmt \
         --terragrunt-source-update \
