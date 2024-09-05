@@ -13,17 +13,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-  - uses: dorny/paths-filter@v3
-    id: filter
-    with:
-      filters: |
-        dev:
-          - 'dev/**'
-        sta:
-          - 'sta/**'
-        pro:
-          - 'pro/**'
-
   - name: Terragrunt Install
     uses: marquesmateus93/piperoad/templates/terragrunt/install@master
     env:
