@@ -14,3 +14,6 @@ The smallest part of the script.
 
 The joining of the smallest parts.
 
+#### Scheme
+
+![PipeRoad drawio](https://github.com/user-attachments/assets/f7db84c9-30e5-4702-8d57-d016bb4f142a)
